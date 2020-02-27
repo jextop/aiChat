@@ -33,6 +33,8 @@ public class RecordHelper {
     }
 
     public void record(TimeListener timeListener, Long msDuration) {
+        stop();
+
         byteOutputStream = new ByteArrayOutputStream();
         Recorder.record(byteOutputStream, timeListener, msDuration);
     }
@@ -43,6 +45,10 @@ public class RecordHelper {
 
     public void stop(long millis) {
         Recorder.stop(millis);
+    }
+
+    public boolean isRecording() {
+        return Recorder.isRecording();
     }
 
     public void play() {

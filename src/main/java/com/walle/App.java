@@ -29,9 +29,12 @@ public class App {
         recordBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                recordBtn.setText(String.format("%s(%d)", title, msDuration / 1000));
-
                 final RecordHelper recordHelper = RecordHelper.getInst();
+                if (recordHelper.isRecording()) {
+                    return;
+                }
+
+                recordBtn.setText(String.format("%s(%d)", title, msDuration / 1000));
                 recordHelper.record(new TimeListener() {
                     @Override
                     public void timeUpdated(long seconds) {
