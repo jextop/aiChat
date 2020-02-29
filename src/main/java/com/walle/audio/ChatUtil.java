@@ -8,7 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 public class ChatUtil {
-    public static void chat() {
+    public static void chat(TimeListener listener) {
         RecordHelper recordHelper = RecordHelper.getInst();
         final ByteArrayOutputStream data = recordHelper.save(new ByteArrayOutputStream());
 
@@ -27,10 +27,10 @@ public class ChatUtil {
         );
 
         if (ret != null && ret.length > 0) {
-            Player.asyncPlay(ret);
+            Player.asyncPlay(ret, listener);
         } else {
             // 播放自己的声音吧
-            recordHelper.play();
+            recordHelper.play(listener);
         }
     }
 }

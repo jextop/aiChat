@@ -51,8 +51,8 @@ public class RecordHelper {
         return Recorder.isRecording();
     }
 
-    public void play() {
-        Player.asyncPlay(byteOutputStream);
+    public void play(TimeListener timeListener) {
+        Player.asyncPlay(byteOutputStream, timeListener);
     }
 
     public <T> T save(T fileOrStream) {
