@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 public class App {
     private static final long MS_DURATION = 5000;
     private static final String RECORD = "      请讲话";
-    private static final String PLAY = "      ---";
+    private static final String PLAY = "      --------";
     private static boolean isChatting = false;
 
     private static JButton recordBtn;
@@ -20,8 +20,8 @@ public class App {
     private static TimeListener recorderListener;
 
     static {
-        recordLbl = new JLabel(PLAY);
         recordBtn = new JButton("开始聊天");
+        recordLbl = new JLabel(PLAY);
 
         recordBtn.addActionListener(new ActionListener() {
             @Override
@@ -49,8 +49,10 @@ public class App {
             @Override
             public void stopped(long seconds) {
                 recordLbl.setText(PLAY);
-                if (isChatting) {
-                    ChatUtil.chat(playerListener);
+                synchronized (App.class) {
+                    if (isChatting) {
+                        ChatUtil.chat(playerListener);
+                    }
                 }
             }
         };
@@ -64,7 +66,7 @@ public class App {
             public void stopped(long seconds) {
                 synchronized (App.class) {
                     if (isChatting) {
-                        recordLbl.setText(RECORD);
+                        recordLbl.setText(String.format("%s(%d)", RECORD, MS_DURATION / 1000));
                         RecordHelper recordHelper = RecordHelper.getInst();
                         recordHelper.record(recorderListener, MS_DURATION);
                     }
@@ -81,18 +83,20 @@ public class App {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
 
+        Box chatBox = Box.createVerticalBox();
+        chatBox.add(recordBtn);
+        chatBox.add(recordLbl);
+
         // create panel
         JPanel panel = new JPanel();
-        panel.add(Box.createVerticalStrut(30));
-        Box verticalBox = Box.createVerticalBox();
-        panel.add(verticalBox);
-        verticalBox.add(recordBtn);
-        verticalBox.add(recordLbl);
+        panel.add(Box.createVerticalStrut(150));
+        panel.add(chatBox);
 
-        // Show panel
+        // show panel
         frame.setContentPane(panel);
         frame.setVisible(true);
 
+        // do work
         frame.getRootPane().setDefaultButton(recordBtn);
         recordBtn.doClick();
     }
