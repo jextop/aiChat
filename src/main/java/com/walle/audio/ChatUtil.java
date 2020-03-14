@@ -3,6 +3,7 @@ package com.walle.audio;
 import com.walle.http.HttpUtil;
 import com.walle.http.RespData;
 import com.walle.util.B64Util;
+import com.walle.util.MacUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class ChatUtil {
                 null, new HashMap<String, Object>() {{
                     put("size", data.size());
                     put("format", "wav");
+                    put("uid", MacUtil.gtMacAddr());
                     put("audio", B64Util.encode(data.toByteArray()));
                 }}, resp
         );
