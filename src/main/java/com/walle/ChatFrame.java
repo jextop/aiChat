@@ -78,7 +78,7 @@ public class ChatFrame {
     public static JFrame showFrame() {
         // create frame
         final JFrame frame = new JFrame("aiChat - 智能语音聊天机器人");
-        frame.setSize(300, 300);
+        frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
