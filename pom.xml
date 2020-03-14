@@ -8,7 +8,7 @@
     <artifactId>walle</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Walle</name>
+    <name>aiChat</name>
     <url>https://github.com/jextop/</url>
 
     <properties>
