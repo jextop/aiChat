@@ -40,7 +40,12 @@ class Player implements Runnable {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        executorService.execute(player);
+
+        if (player.audioStream != null) {
+            executorService.execute(player);
+        } else {
+            listener.stopped(0);
+        }
     }
 
     public static void asyncPlay(URL fileUrl, TimeListener listener) {

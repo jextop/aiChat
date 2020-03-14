@@ -81,7 +81,7 @@ public class RecordHelper {
                 audioInputStream.close();
                 byteInputStream.close();
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
         return fileOrStream;
